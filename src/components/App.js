@@ -166,6 +166,8 @@ function App() {
     const [packs, setPacks] = useState(initPacks);
     const [movePacks, setMovePacks] = useState([]);
     const [draggedItem, setDraggedItem] = useState(null);
+    const [score, setScore] = useState(0);
+
     // Drag-and-Drop
     // Функция перетаскиваемого элемента
     const handleDragStart = (e, item) => {
@@ -201,6 +203,13 @@ function App() {
     // Функция сброса
     const handleDrop = (e) => {
         e.preventDefault();
+        setScore((prev) =>
+            draggedItem
+                ? draggedItem.shtamp
+                    ? draggedItem.point + prev
+                    : prev + draggedItem.point
+                : prev
+        );
         setPacks((prev) =>
             prev.filter((p) => (draggedItem ? p.id !== draggedItem.id : p))
         );
@@ -242,8 +251,39 @@ function App() {
             Math.abs(e.changedTouches[0].clientX - touchCoords.x) > 10 ||
             Math.abs(e.changedTouches[0].clientY - touchCoords.y > 10)
         ) {
-            setPacks((prev) => prev.filter((p) => p.id !== draggedItem.id));
-            setMovePacks((prev) => [...prev, draggedItem]);
+            setScore((prev) =>
+                draggedItem
+                    ? draggedItem.shtamp
+                        ? draggedItem.point + prev
+                        : prev + draggedItem.point
+                    : prev
+            );
+            setPacks((prev) =>
+                prev.filter((p) => (draggedItem ? p.id !== draggedItem.id : p))
+            );
+            setMovePacks((prev) =>
+                draggedItem && prev.id !== draggedItem.id
+                    ? [
+                          ...prev,
+                          {
+                              ...draggedItem,
+                              y:
+                                  e.changedTouches[0].clientY > 711
+                                      ? e.changedTouches[0].clientY - 185
+                                      : e.changedTouches[0].clientY < 346
+                                      ? e.changedTouches[0].clientY + 100
+                                      : e.changedTouches[0].clientY,
+                              x:
+                                  e.changedTouches[0].clientX > 831
+                                      ? e.changedTouches[0].clientX - 150
+                                      : e.changedTouches[0].clientX < 164
+                                      ? e.changedTouches[0].clientX + 105
+                                      : e.changedTouches[0].clientX,
+                              rotate: getRandomInt(90),
+                          },
+                      ]
+                    : prev
+            );
         }
         setDraggedItem(null);
     };
@@ -251,19 +291,23 @@ function App() {
     return (
         <main className={styles.app}>
             <div className={styles.workplace}>
-                <div>
-                    <h1 className={styles.workplace_title}>
-                        Символьная сортировка
-                    </h1>
-                    <p className={styles.workplace_text}>
-                        Выбирай продукцию с изображением круга на упаковке и
-                        укладывай её в коробку. Важно не упустить те, где есть
-                        символы!
-                    </p>
+                <div className={styles.workplace_head}>
+                    <div>
+                        <h1 className={styles.workplace_title}>
+                            Символьная сортировка
+                        </h1>
+                        <p className={styles.workplace_text}>
+                            Выбирай продукцию с изображением круга на упаковке и
+                            укладывай её в коробку. Важно не упустить те, где
+                            есть символы!
+                        </p>
 
-                    <p className={styles.workplace_info}>
-                        <span className={styles.info_btn}>лкм</span> Перемещать
-                    </p>
+                        <p className={styles.workplace_info}>
+                            <span className={styles.info_btn}>лкм</span>{" "}
+                            Перемещать
+                        </p>
+                    </div>
+                    <p className={styles.workplace_score}>Score: {score}</p>
                 </div>
 
                 <div className={styles.workplace_borderbox}>
@@ -271,7 +315,7 @@ function App() {
                         id="box"
                         onDrop={handleDrop}
                         onDragOver={handleDragOver}
-                        // onTouchEnd={handleTouchEnd}
+                        onTouchEnd={handleTouchEnd}
                         className={styles.workplace_box}
                     >
                         {movePacks?.map((pack, index) => (
@@ -308,7 +352,7 @@ function App() {
                             id={pack.id}
                             draggable
                             onDragStart={(e) => handleDragStart(e, pack)}
-                            // onTouchStart={(e) => handleTouchStart(e, pack)}
+                            onTouchStart={(e) => handleTouchStart(e, pack)}
                             className={styles.conveyor_pack}
                             style={{
                                 position: "absolute",
