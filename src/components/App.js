@@ -378,7 +378,7 @@ function App() {
                             <img
                                 src={pack.src}
                                 alt="pack"
-                                style={{ rotate: `${pack.rotate}deg` }}
+                                style={{ rotate: `${pack.rotate}deg`, pointer-events: none}}
                             />
                         </li>
                     ))}
