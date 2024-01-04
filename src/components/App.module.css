@@ -4,8 +4,8 @@
     justify-content: space-between;
     gap: 45px;
 
-    width: 1450px;
-    height: 985px;
+    width: 1920px;
+    height: 1080px;
     margin: 0 auto;
     /* max-width: 1920px;
     width: 100%;
@@ -99,7 +99,7 @@
 
 .workplace_head {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     justify-content: space-between;
 }
 
