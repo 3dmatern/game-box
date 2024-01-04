@@ -224,3 +224,7 @@
     list-style-type: none;
     cursor: pointer;
 }
+
+.conveyor_img {
+    pointer-events: none;
+}
