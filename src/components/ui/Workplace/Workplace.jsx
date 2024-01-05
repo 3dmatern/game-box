@@ -5,6 +5,7 @@ import styles from "./Workplace.module.css";
 import { getRandomInt } from "../../../utils/getRandomInt";
 
 import WorkplaceBox from "./WorkplaceBox";
+import WorkplaceTrash from "./WorkplaceTrash";
 
 const Workplace = ({ draggedItem, changePacks, changeDraggedItem }) => {
     const [score, setScore] = useState(0);
@@ -12,6 +13,11 @@ const Workplace = ({ draggedItem, changePacks, changeDraggedItem }) => {
 
     const playSoundDropItem = () => {
         const audioElement = new Audio("./drop.mp3");
+        audioElement.play();
+    };
+
+    const playSoundDropItemTrash = () => {
+        const audioElement = new Audio("./trash.mp3");
         audioElement.play();
     };
 
@@ -75,6 +81,10 @@ const Workplace = ({ draggedItem, changePacks, changeDraggedItem }) => {
             Math.abs(e.changedTouches[0].clientX - touchCoords.x) > 10 ||
             Math.abs(e.changedTouches[0].clientY - touchCoords.y > 10)
         ) {
+            if (draggedItem) {
+                playSoundDropItem();
+            }
+
             setScore((prev) =>
                 draggedItem
                     ? draggedItem.shtamp
@@ -109,6 +119,35 @@ const Workplace = ({ draggedItem, changePacks, changeDraggedItem }) => {
         }
         changeDraggedItem(null);
     };
+    const handleDropTrash = (e) => {
+        e.preventDefault();
+
+        if (draggedItem) {
+            playSoundDropItemTrash();
+        }
+
+        changePacks();
+
+        changeDraggedItem(null);
+    };
+    const handleTouchEndTrash = (e) => {
+        e.preventDefault();
+
+        // Получаем координаты касания
+        const touchCoords = JSON.parse(e.dataTransfer.getData("touchCoords"));
+
+        // Проверяем, что пермещение было достаточным
+        if (
+            Math.abs(e.changedTouches[0].clientX - touchCoords.x) > 10 ||
+            Math.abs(e.changedTouches[0].clientY - touchCoords.y > 10)
+        ) {
+            if (draggedItem) {
+                playSoundDropItemTrash();
+            }
+            changePacks();
+        }
+        changeDraggedItem(null);
+    };
 
     return (
         <div className={styles.workplace}>
@@ -136,6 +175,12 @@ const Workplace = ({ draggedItem, changePacks, changeDraggedItem }) => {
                 onDragOver={handleDragOver}
                 onTouchEnd={handleTouchEnd}
                 playSoundDropItem={playSoundDropItem}
+            />
+
+            <WorkplaceTrash
+                onDrop={handleDropTrash}
+                onDragOver={handleDragOver}
+                onTouchEnd={handleTouchEndTrash}
             />
         </div>
     );
