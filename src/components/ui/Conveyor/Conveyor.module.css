@@ -1,0 +1,27 @@
+.conveyor {
+    width: 570px;
+    height: 900px;
+    padding: 14px 23px;
+
+    position: relative;
+    z-index: 10;
+
+    border-left: 2px solid #fff;
+
+    overflow: hidden;
+}
+
+.conveyor_roller {
+    width: 524px;
+    height: 50px;
+    margin-bottom: 8.9px;
+
+    background-image: url("../../../../public/roller.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.conveyor_roller:last-child {
+    margin-bottom: 0;
+}

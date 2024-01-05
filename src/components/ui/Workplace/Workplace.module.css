@@ -1,0 +1,70 @@
+.workplace {
+    width: 1350px;
+    height: 900px;
+    position: relative;
+    z-index: 9999;
+    padding: 30px;
+}
+
+.workplace_head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.workplace_title {
+    color: #fff;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -1.28px;
+    text-transform: uppercase;
+}
+
+.workplace_text {
+    max-width: 520px;
+    margin: 25px 0 20px;
+
+    color: #fff;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    letter-spacing: -0.72px;
+}
+
+.workplace_info {
+    color: #fff;
+    leading-trim: both;
+    text-edge: cap;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    letter-spacing: -0.64px;
+}
+
+.info_btn {
+    padding: 2px 5px;
+    border-radius: 3px;
+    background: #fff;
+
+    color: #020000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.64px;
+    text-transform: uppercase;
+}
+
+.workplace_score {
+    color: #fff;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -1.28px;
+    text-transform: uppercase;
+}

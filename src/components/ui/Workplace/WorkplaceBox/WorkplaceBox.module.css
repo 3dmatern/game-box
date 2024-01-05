@@ -1,0 +1,26 @@
+.workplace_box {
+    display: block;
+    width: 883px;
+    height: 561px;
+    margin: 50px auto 0;
+    padding: 0;
+
+    background-image: url("../../../../../public/box.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.workplace_pack {
+    max-width: 105px;
+    width: 100%;
+    max-height: 202px;
+    height: 100%;
+
+    list-style-type: none;
+    cursor: pointer;
+}
+
+.workplace_img {
+    pointer-events: none;
+}
